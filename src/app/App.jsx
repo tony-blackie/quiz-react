@@ -6,62 +6,38 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-        questions:[],
-        isCheck: {
-            answerCheck1: true,
-            answerCheck2: false,
-            answerCheck3: false,
-            answerCheck4: false
-        },
-        valueInput: {
-            answer1: "",
-            answer2: "",
-            answer3: "",
-            answer4: "",
-            addProp: (number) => {
-                let preName = "answer" + number;
-                this.preName = 1;
-            }
-        },
+        isCheck: [true, false, false, false],
+        answers: ["","","",""],
         quest: "",
-        isErrorShown: true
+        isErrorShown: true,
+        arrr: [1,2]
     };
 
     this.radioCheck = this.radioCheck.bind(this);
     this.saveInfo = this.saveInfo.bind(this);
     this.saveDataInState = this.saveDataInState.bind(this);
-    this.addInfoWithInput = this.addInfoWithInput.bind(this);
+    this.addInfoFromInput = this.addInfoFromInput.bind(this);
+    this.showError = this.showError.bind(this);
   };
 
   radioCheck(e) {
-      let current = "answerCheck" + e.target.id;
+      let current = e.target.id;
+      let arr = [false, false, false, false];
+      arr[current] = true;
 
-      this.setState({isCheck: {
-          answerCheck1: false,
-          answerCheck2: false,
-          answerCheck3: false,
-          answerCheck4: false
-      }});
-
-      this.setState({isCheck: {
-          current: true
-      }});
-
+      this.setState({isCheck:[false, false, false, false]});
+  
+      this.setState({isCheck: arr});
   }
 
-  addInfoWithInput(e) {
-      let current = "answer" + e.target.id;
-
-     console.log(e.target.value);
-
+  addInfoFromInput(e) {
+      let current = e.target.id;
+      let arr = this.state.answers;
+      arr[current] = e.target.value;
+     
       this.setState({
-          valueInput: {
-              current: e.target.value
-          }
+          answers: arr
       });
-
-      console.log(this.state.valueInput.answer1);
-
 
   }
 
@@ -74,7 +50,18 @@ export default class App extends React.Component {
   }
 
   saveInfo(e) {
-      console.log(this.state.quest);
+      this.showError();
+  }
+
+  showError() {
+      let answ = this.state.answers;
+      let errNumber = []
+      for (let i = 0; i < answ.length; i++) {
+        if (answ[i] === "") {
+            errNumber.push(i);
+        }
+      }
+      console.log(errNumber);
   }
 
   render() {
@@ -94,24 +81,28 @@ export default class App extends React.Component {
                   <input type="text" value={this.state.quest} onChange={this.saveDataInState}/>
 
                   <div>
-
                       <div>
-                          <input type="radio" name="group" id={1} checked={this.state.isCheck.answerCheck1}  onChange={this.radioCheck} />
-                          <input type="text"   id={1}   value={this.state.valueInput.answer1} onChange={this.addInfoWithInput}/>
+                          <input type="radio" name="group" id={0} checked={this.state.isCheck[0]}  onChange={this.radioCheck} />
+                          <input type="text"   id={0}   value={this.state.answers[0]} onChange={this.addInfoFromInput}/>
                       </div>
                       <div>
-                          <input type="radio" name="group" id={2} checked={this.state.isCheck.answerCheck2} onChange={this.radioCheck} />
-                          <input type="text"  id={2} value={this.state.valueInput.answer2} onChange={this.addInfoWithInput}/>
+                          <input type="radio" name="group" id={1} checked={this.state.isCheck[1]} onChange={this.radioCheck} />
+                          <input type="text"  id={1} value={this.state.answers[1]} onChange={this.addInfoFromInput}/>
                       </div>
                       <div>
-                          <input type="radio" name="group" id={3} checked={this.state.isCheck.answerCheck3} onChange={this.radioCheck} />
-                          <input type="text"  id={3}  value={this.state.valueInput.answer3} onChange={this.addInfoWithInput}/>
+                          <input type="radio" name="group" id={2} checked={this.state.isCheck[2]} onChange={this.radioCheck} />
+                          <input type="text"  id={2}  value={this.state.answers[2]} onChange={this.addInfoFromInput}/>
                       </div>
                       <div>
-                          <input type="radio" name="group" id={4} checked={this.state.isCheck.answerCheck4}  onChange={this.radioCheck} />
-                          <input type="text"  id={4} value={this.state.valueInput.answer4} onChange={this.addInfoWithInput}/>
+                          <input type="radio" name="group" id={3} checked={this.state.isCheck[3]}  onChange={this.radioCheck} />
+                          <input type="text"  id={3} value={this.state.answers[3]} onChange={this.addInfoFromInput}/>
                       </div>
                   </div>
+
+                  <div className={errorClass}>
+                    error {this.state.arrr}
+                  </div>
+
                   <button onClick={this.saveInfo}>
                       Save
                   </button>
