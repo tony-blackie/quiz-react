@@ -6,140 +6,138 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-        finalAnswer: "",
-        finalQuset: "",
-        finalTrueAnsw: "",
+        finalAnswers: "",
+        finalQuestion: "",
+        finalNumberCorrectAnswer: "",
         isCheck: [true, false, false, false],
         answers: ["","","",""],
-        quest: "",
-        isErrorShown: false,
-        isErrorQuestShown: false,
-        checkArrAnsw: "",
-        checkArrQuest: false,
+        question: "",
+        isErrorShownForAnswer: false,
+        isErrorShownForQuestion: false,
+        arrayNumberFieldWhenError: "",
+        isAllFieldIsTrue: false,
         isTestOpen: false,
-        isCreateTestOpen: true,
-        createTestIsTrue: false
+        isCreateTestOpen: true
     };
 
-    this.radioCheck = this.radioCheck.bind(this);
+    this.changeRadioBnt = this.changeRadioBnt.bind(this);
     this.saveInfo = this.saveInfo.bind(this);
-    this.saveDataInState = this.saveDataInState.bind(this);
-    this.addInfoFromInput = this.addInfoFromInput.bind(this);
-    this.showError = this.showError.bind(this);
-    this.showQuestError = this.showQuestError.bind(this);
+    this.addQuestion = this.addQuestion.bind(this);
+    this.addAnswer = this.addAnswer.bind(this);
+    this.checkCorrectAnswers = this.checkCorrectAnswers.bind(this);
+    this.checkCorrectQuestion = this.checkCorrectQuestion.bind(this);
     this.showTestBlock = this.showTestBlock.bind(this);
-    this.showCreateTestBlock = this.showCreateTestBlock.bind(this);
+    this.showConstructor = this.showConstructor.bind(this);
   };
 
-  radioCheck(e) {
-      let current = e.target.id;
+  changeRadioBnt(e) {
+      let currentNumber = e.target.id;
       let arr = [false, false, false, false];
-      arr[current] = true;
+      arr[currentNumber] = true;
 
       this.setState({isCheck:[false, false, false, false]});
   
       this.setState({isCheck: arr});
   }
 
-  addInfoFromInput(e) {
-      let current = e.target.id;
+  addAnswer(e) {
+      let currentNumberAnswer = e.target.id;
       let arr = this.state.answers;
-      arr[current] = e.target.value;
+      arr[currentNumberAnswer] = e.target.value;
      
       this.setState({
           answers: arr
       });
-
   }
 
-  saveDataInState(e) {
+  addQuestion(e) {
       let text = e.target.value;
 
       this.setState({
-        quest: text
+        question: text
       })
   }
 
   saveInfo() {
-     let a = this.showError();
-     let b = this.showQuestError();
+     let isCorrectAnswers = this.checkCorrectAnswers();
+     let isCorrectQuestion = this.checkCorrectQuestion();
 
-     let trueAnsArr = this.state.isCheck;
-     let trueAns = this.state.answers;
-     let trueQuest = this.state.quest;
+     let currentStateCheck = this.state.isCheck;
+     let answers = this.state.answers;
+     let question = this.state.question;
 
-     if (a && b) {
+     if (isCorrectAnswers && isCorrectQuestion) {
 
-         for (let i = 0; i < trueAnsArr.length; i++) {
-             if (trueAnsArr[i] === true) {
+         for (let i = 0; i < currentStateCheck.length; i++) {
+             if (currentStateCheck[i] === true) {
                  this.setState({
-                     finalTrueAnsw: i,
+                     finalNumberCorrectAnswer: i,
                  });
              }
          }
          this.setState({
-             finalAnswer: trueAns,
-             finalQuset: trueQuest,
+             finalAnswers: answers,
+             finalQuestion: question,
              isCheck: [true, false, false, false],
              answers: ["","","",""],
-             quest: "",
-             createTestIsTrue: true
+             question: "",
+             isAllFieldIsTrue: true
          });
 
          setTimeout(()=>{
              this.setState({
-                 createTestIsTrue: false
+                 isAllFieldIsTrue: false
              })
          }, 2000)
      }
 
   }
 
-  showError() {
-      let answ = this.state.answers;
-      let errNumber = [];
-      for (let i = 0; i < answ.length; i++) {
-        if (answ[i] === "") {
-            errNumber.push(i);
+  checkCorrectAnswers() {
+      let currentAnswers = this.state.answers;
+      let numberEmptyAnswers = [];
+      for (let i = 0; i < currentAnswers.length; i++) {
+        if (currentAnswers[i] === "") {
+            numberEmptyAnswers.push(i);
         }
       }
-      if(errNumber.length !== 0) {
-          errNumber = errNumber.join(",") + "";
+      if(numberEmptyAnswers.length !== 0) {
+          numberEmptyAnswers = numberEmptyAnswers.join(",") + "";
           this.setState({
-              isErrorShown: true,
-              checkArrAnsw: errNumber
+              isErrorShownForAnswer: true,
+              arrayNumberFieldWhenError: numberEmptyAnswers
           });
           return false;
       } else {
           this.setState({
-              isErrorShown: false
+              isErrorShownForAnswer: false
           });
           return true;
       }
   }
 
-  showQuestError() {
-    if (this.state.quest === "") {
+  checkCorrectQuestion() {
+    if (this.state.question === "") {
         this.setState({
-            isErrorQuestShown: true,
+            isErrorShownForQuestion: true,
         });
         return false
     } else {
         this.setState({
-            isErrorQuestShown: false,
+            isErrorShownForQuestion: false,
         });
         return true
     }
   }
 
-  showTestBlock() {
+  showConstructor() {
       this.setState({
           isTestOpen: false,
           isCreateTestOpen: true
       })
   }
 
-    showCreateTestBlock() {
+    showTestBlock() {
         this.setState({
             isTestOpen: true,
             isCreateTestOpen: false
@@ -147,50 +145,50 @@ export default class App extends React.Component {
     }
 
   render() {
-      let errorClass = this.state.isErrorShown ? "visible" : "not_visible";
-      let errorQuestClass = this.state.isErrorQuestShown ? "visible" : "not_visible";
-      let createTestBlock = this.state.isCreateTestOpen ? "visible" : "not_visible";
+      let errorClassForAnswers = this.state.isErrorShownForAnswer ? "visible" : "not_visible";
+      let errorClassForQuestion = this.state.isErrorShownForQuestion ? "visible" : "not_visible";
+      let showConstructor = this.state.isCreateTestOpen ? "visible" : "not_visible";
 
-      let createTestIsTrue = this.state.createTestIsTrue ? "visible" : "not_visible";
+      let testIsCorrect = this.state.isAllFieldIsTrue ? "visible" : "not_visible";
 
       return (
           <div>
-              <button onClick={this.showTestBlock}>
+              <button onClick={this.showConstructor}>
                   Constructor
               </button>
-              <button onClick={this.showCreateTestBlock}>
+              <button onClick={this.showTestBlock}>
                   Test
               </button>
-              <div className={createTestBlock}>
+              <div className={showConstructor}>
                   <div>
                       question
                   </div>
-                  <input type="text" value={this.state.quest} onChange={this.saveDataInState}/>
+                  <input type="text" value={this.state.question} onChange={this.addQuestion}/>
 
                   <div>
                       <div>
-                          <input type="radio" name="group" id={0} checked={this.state.isCheck[0]}  onChange={this.radioCheck} />
-                          <input type="text"   id={0}   value={this.state.answers[0]} onChange={this.addInfoFromInput}/>
+                          <input type="radio" name="group" id={0} checked={this.state.isCheck[0]}  onChange={this.changeRadioBnt} />
+                          <input type="text"   id={0}   value={this.state.answers[0]} onChange={this.addAnswer}/>
                       </div>
                       <div>
-                          <input type="radio" name="group" id={1} checked={this.state.isCheck[1]} onChange={this.radioCheck} />
-                          <input type="text"  id={1} value={this.state.answers[1]} onChange={this.addInfoFromInput}/>
+                          <input type="radio" name="group" id={1} checked={this.state.isCheck[1]} onChange={this.changeRadioBnt} />
+                          <input type="text"  id={1} value={this.state.answers[1]} onChange={this.addAnswer}/>
                       </div>
                       <div>
-                          <input type="radio" name="group" id={2} checked={this.state.isCheck[2]} onChange={this.radioCheck} />
-                          <input type="text"  id={2}  value={this.state.answers[2]} onChange={this.addInfoFromInput}/>
+                          <input type="radio" name="group" id={2} checked={this.state.isCheck[2]} onChange={this.changeRadioBnt} />
+                          <input type="text"  id={2}  value={this.state.answers[2]} onChange={this.addAnswer}/>
                       </div>
                       <div>
-                          <input type="radio" name="group" id={3} checked={this.state.isCheck[3]}  onChange={this.radioCheck} />
-                          <input type="text"  id={3} value={this.state.answers[3]} onChange={this.addInfoFromInput}/>
+                          <input type="radio" name="group" id={3} checked={this.state.isCheck[3]}  onChange={this.changeRadioBnt} />
+                          <input type="text"  id={3} value={this.state.answers[3]} onChange={this.addAnswer}/>
                       </div>
                   </div>
 
-                  <div className={errorClass}>
-                    Error {this.state.checkArrAnsw} is field
+                  <div className={errorClassForAnswers}>
+                    Error {this.state.arrayNumberFieldWhenError} is field
                   </div>
-                  <div className={errorQuestClass}>
-                      Error question is field
+                  <div className={errorClassForQuestion}>
+                      Error question is empty
                   </div>
                 
 
@@ -198,12 +196,12 @@ export default class App extends React.Component {
                       Save
                   </button>
 
-                  <div className={createTestIsTrue}>
+                  <div className={testIsCorrect}>
                     You question is save
                   </div>
 
               </div>
-              <Quiz status={this.state.isTestOpen} answers={this.state.finalAnswer} quest={this.state.finalQuset} trueAns={this.state.finalTrueAnsw} defaultOpt={true}/>
+              <Quiz status={this.state.isTestOpen} answers={this.state.finalAnswers} question={this.state.finalQuestion} trueNumberAnswer={this.state.finalNumberCorrectAnswer}/>
           </div>
       );
   };

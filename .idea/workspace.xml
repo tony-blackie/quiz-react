@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c1da7ae-7fb5-43e1-ae0e-f51f52e6d3e0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/App.jsx" afterPath="$PROJECT_DIR$/src/app/App.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/Quiz.jsx" afterPath="$PROJECT_DIR$/src/app/Quiz.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/routes.jsx" afterPath="$PROJECT_DIR$/src/app/routes.jsx" />
-    </list>
+    <list default="true" id="7c1da7ae-7fb5-43e1-ae0e-f51f52e6d3e0" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -36,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/src/app/Quiz.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="626">
-              <caret line="72" column="7" lean-forward="false" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="7" />
+              <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -249,16 +244,15 @@
       <workItem from="1494773536358" duration="6412000" />
       <workItem from="1494822363163" duration="1638000" />
       <workItem from="1494874245577" duration="2512000" />
-      <workItem from="1494908974918" duration="1148000" />
+      <workItem from="1494908974918" duration="1439000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59591000" />
+    <option name="totallyTimeSpent" value="59882000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24920969" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -684,7 +678,7 @@
     <entry file="file://$PROJECT_DIR$/src/app/Quiz.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="626">
-          <caret line="72" column="7" lean-forward="false" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="7" />
+          <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding />
         </state>
       </provider>

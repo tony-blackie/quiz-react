@@ -4,102 +4,90 @@ export default class Quiz extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            emptyCont: false,
             isCheck: [true, false, false, false],
-            trueAnswer: false,
-            falseAnswer: false
+            isTrueTest: false,
+            isFalseTest: false
         }
-        this.radioCheck = this.radioCheck.bind(this);
-        this.checkSend = this.checkSend.bind(this);
-        this.func1 = this.func1.bind(this);
-
+        this.changeRadioBnt = this.changeRadioBnt.bind(this);
+        this.checkTest = this.checkTest.bind(this);
     };
 
-    radioCheck(e) {
-        let current = e.target.id;
-        let arr = [false, false, false, false];
-        arr[current] = true;
+    changeRadioBnt(e) {
+      let currentNumber = e.target.id;
+      let arr = [false, false, false, false];
+      arr[currentNumber] = true;
 
-        this.setState({isCheck:[false, false, false, false]});
+      this.setState({isCheck:[false, false, false, false]});
+  
+      this.setState({isCheck: arr});
+  }
 
-        this.setState({isCheck: arr});
-    }
-
-    checkSend(e) {
-        let arr = this.state.isCheck;
-        for( let i = 0; i < arr.length; i++ ) {
-            if(arr[this.props.trueAns] === true) {
+    checkTest(e) {
+        let currentAnswers = this.state.isCheck;
+        for( let i = 0; i < currentAnswers.length; i++ ) {
+            if(currentAnswers[this.props.trueNumberAnswer] === true) {
                 this.setState({
-                    trueAnswer: true,
-                    falseAnswer: false
+                    isTrueTest: true,
+                    isFalseTest: false
                 })
             
             } else {
                 this.setState({
-                    trueAnswer: false,
-                    falseAnswer: true
+                    isTrueTest: false,
+                    isFalseTest: true
                 })
-                
             }
         }
-    }
-
-    func1() {
-        this.setState({
-            isCheck: [true, false, false, false],
-            trueAnswer: false,
-            falseAnswer: false
-        });
     }
 
     componentWillReceiveProps() {
         this.setState({
             isCheck: [true, false, false, false],
-            trueAnswer: false,
-            falseAnswer: false
+            isTrueTest: false,
+            isFalseTest: false
         });
     }
 
 
 
     render() {
-        let showTestBlock = this.props.status ? "visible" : "not_visible";
-        let showNeedBlock = this.props.answers === "" ? "visible" : "not_visible";
-        let showNeed2Block = this.props.answers !== "" ? "visible" : "not_visible";
+        let testBlock = this.props.status ? "visible" : "not_visible";
+        let messageIfNotTest = this.props.answers === "" ? "visible" : "not_visible";
+        let test = this.props.answers !== "" ? "visible" : "not_visible";
 
-        let trueAnswer = this.state.trueAnswer ? "visible" : "not_visible";
-        let falseAnswer = this.state.falseAnswer ? "visible" : "not_visible";
+        let isTrueTest = this.state.isTrueTest ? "visible" : "not_visible";
+        let isFalseTest = this.state.isFalseTest ? "visible" : "not_visible";
 
        
 
 
         return (
-            <div className={showTestBlock}>
-                <div className={showNeedBlock}>
+            <div className={testBlock}>
+                <div className={messageIfNotTest}>
                     Sorry, you must write test
                 </div>
-                <div className={showNeed2Block}>
+                <div className={test}>
                     <div>
-                        {this.props.quest} ?
+                        {this.props.question} ?
                     </div>
                     <div>
-                        <input type="radio" name="0"  id={0} checked={this.state.isCheck[0]}  onChange={this.radioCheck}/>
+                        <input type="radio" name="0"  id={0} checked={this.state.isCheck[0]}  onChange={this.changeRadioBnt}/>
                         <label htmlFor="0">{this.props.answers[0]}</label> <br/>
-                        <input type="radio" name="1"  id={1} checked={this.state.isCheck[1]}  onChange={this.radioCheck}/>
-                        <label htmlFor="1">{this.props.answers[1]}</label> <br/>
-                        <input type="radio" name="2"  id={2} checked={this.state.isCheck[2]}  onChange={this.radioCheck}/>
-                        <label htmlFor="2">{this.props.answers[2]}</label> <br/>
-                        <input type="radio" name="3"  id={3} checked={this.state.isCheck[3]}  onChange={this.radioCheck}/>
-                        <label htmlFor="3">{this.props.answers[3]}</label> <br/>
+                        <input type="radio" name="1"  id={1} checked={this.state.isCheck[1]}  onChange={this.changeRadioBnt}/>
+                        <label>{this.props.answers[1]}</label> <br/>
+                        <input type="radio" name="2"  id={2} checked={this.state.isCheck[2]}  onChange={this.changeRadioBnt}/>
+                        <label>{this.props.answers[2]}</label> <br/>
+                        <input type="radio" name="3"  id={3} checked={this.state.isCheck[3]}  onChange={this.changeRadioBnt}/>
+                        <label>{this.props.answers[3]}</label> <br/>
                         <div>
-                            <div className={trueAnswer}>
+                            <div className={isTrueTest}>
                                 YES!!!
                             </div>
-                            <div className={falseAnswer}>
+                            <div className={isFalseTest}>
                                 Oh no...
                             </div>
                         </div>
-                        <button onClick={this.checkSend}>Send</button>
+                        <button onClick={this.checkTest}>Send</button>
                     </div>
 
                 </div>
