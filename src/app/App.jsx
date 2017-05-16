@@ -17,7 +17,8 @@ export default class App extends React.Component {
         checkArrAnsw: "",
         checkArrQuest: false,
         isTestOpen: false,
-        isCreateTestOpen: true
+        isCreateTestOpen: true,
+        createTestIsTrue: false
     };
 
     this.radioCheck = this.radioCheck.bind(this);
@@ -78,8 +79,18 @@ export default class App extends React.Component {
          }
          this.setState({
              finalAnswer: trueAns,
-             finalQuset: trueQuest
+             finalQuset: trueQuest,
+             isCheck: [true, false, false, false],
+             answers: ["","","",""],
+             quest: "",
+             createTestIsTrue: true
          });
+
+         setTimeout(()=>{
+             this.setState({
+                 createTestIsTrue: false
+             })
+         }, 2000)
      }
 
   }
@@ -140,6 +151,8 @@ export default class App extends React.Component {
       let errorQuestClass = this.state.isErrorQuestShown ? "visible" : "not_visible";
       let createTestBlock = this.state.isCreateTestOpen ? "visible" : "not_visible";
 
+      let createTestIsTrue = this.state.createTestIsTrue ? "visible" : "not_visible";
+
       return (
           <div>
               <button onClick={this.showTestBlock}>
@@ -179,13 +192,18 @@ export default class App extends React.Component {
                   <div className={errorQuestClass}>
                       Error question is field
                   </div>
+                
 
                   <button onClick={this.saveInfo}>
                       Save
                   </button>
 
+                  <div className={createTestIsTrue}>
+                    You question is save
+                  </div>
+
               </div>
-              <Quiz status={this.state.isTestOpen} answers={this.state.finalAnswer} quest={this.state.finalQuset} />
+              <Quiz status={this.state.isTestOpen} answers={this.state.finalAnswer} quest={this.state.finalQuset} trueAns={this.state.finalTrueAnsw} defaultOpt={true}/>
           </div>
       );
   };
