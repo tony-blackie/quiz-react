@@ -9,8 +9,9 @@ export default class App extends React.Component {
         finalAnswers: "",
         finalQuestion: "",
         finalNumberCorrectAnswer: "",
-        isCheck: [true, false, false, false],
-        answers: ["","","",""],
+        /* answers and isChecked may possibly be grouped into an array of obects like [{answer: "", isChecked: true}, ...]*/ 
+        isCheck: [true, false, false, false], //"is" prefix is commonly used to indicate boolean values
+        answers: ["","","",""], // you may use just an empty array as a starting value
         question: "",
         isErrorShownForAnswer: false,
         isErrorShownForQuestion: false,
@@ -43,7 +44,7 @@ export default class App extends React.Component {
   addAnswer(e) {
       let currentNumberAnswer = e.target.id;
       let arr = this.state.answers;
-      arr[currentNumberAnswer] = e.target.value;
+      arr[currentNumberAnswer] = e.target.value; //you mutate the state object here, by using link to the state. arr needs to be a copy, to avoid problems
      
       this.setState({
           answers: arr
@@ -68,7 +69,7 @@ export default class App extends React.Component {
 
      if (isCorrectAnswers && isCorrectQuestion) {
 
-         for (let i = 0; i < currentStateCheck.length; i++) {
+         for (let i = 0; i < currentStateCheck.length; i++) { //for is not commonly used, maybe forEach is a better solution? (it has element, index, array parameters)
              if (currentStateCheck[i] === true) {
                  this.setState({
                      finalNumberCorrectAnswer: i,
@@ -76,15 +77,15 @@ export default class App extends React.Component {
              }
          }
          this.setState({
-             finalAnswers: answers,
-             finalQuestion: question,
+             finalAnswers: answers, //here you pass a link to the other state field. they may be changed both at once after that. safer to pass a copy here
+             finalQuestion: question, //same as previous
              isCheck: [true, false, false, false],
              answers: ["","","",""],
              question: "",
              isAllFieldIsTrue: true
          });
 
-         setTimeout(()=>{
+         setTimeout(()=>{ // I don't see what are you trying to achieve here? why not just set this prop false in the previous setState?
              this.setState({
                  isAllFieldIsTrue: false
              })
@@ -98,7 +99,7 @@ export default class App extends React.Component {
       let numberEmptyAnswers = [];
       for (let i = 0; i < currentAnswers.length; i++) {
         if (currentAnswers[i] === "") {
-            numberEmptyAnswers.push(i);
+            numberEmptyAnswers.push(i); 
         }
       }
       if(numberEmptyAnswers.length !== 0) {
@@ -132,8 +133,8 @@ export default class App extends React.Component {
 
   showConstructor() {
       this.setState({
-          isTestOpen: false,
-          isCreateTestOpen: true
+          isTestOpen: false,  //maybe it's better to use one option for this? something like 'isEditMode'
+          isCreateTestOpen: true  //I suppose you use two just to explain what is going on. But they are not that clear anyway :)
       })
   }
 
