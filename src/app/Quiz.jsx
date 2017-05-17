@@ -5,8 +5,8 @@ export default class Quiz extends React.Component {
         super(props);
         this.state = {
             isCheck: [true, false, false, false],
-            isTrueTest: false,
-            isFalseTest: false
+            isTrueTest: false,  // names are not really descriptive
+            isFalseTest: false  // names are not really descriptive
         }
         this.changeRadioBnt = this.changeRadioBnt.bind(this);
         this.checkTest = this.checkTest.bind(this);
