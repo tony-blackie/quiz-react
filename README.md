@@ -1,13 +1,17 @@
-## Quiz
+## Note Manager
 
-### Working with react-router:
-1. Add 'react-router' to your project (npm install --save react-router)
-2. Import { Router, Route } into your file, where you will render your router object (The file, where you do ReactDOM.render)
-3. Instead of your <Root> component render <Router> tag into your div with id="root". Don't forget to add history={historyType} attribute to the Router. It can be browserHistory or hashHistory.
-4. Add Route tags to your Router object, configure the 'path' and 'component' props of each Route.
-5. If you need to add buttons that lead to another page, import Link from react-router and use them instead of "<a>" tags.
-You can set the route with "to" attribute.
-6. If you need to go to another page from your code, not on click, you can do this by importing hashHistory (or browserHistory) to the component you want to use it in and then using it like: browserHistory.push('/users'). It will take you to '/users' page.
+Application for creating small notes, customized to your own liking.
+
+### Work Plan:
+1. ~~Basic note CRUD functionality~~
+2. ~~Folders~~
+3. Drag and drop
+4. Colored notes
+5. Responsive markup
+6. Authentication
+7. Synchronization with Google services
+8. Links to personal notes for other users
+9. Customizable design and layout
 
 ### Install:
 ```
